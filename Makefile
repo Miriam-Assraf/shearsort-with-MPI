@@ -1,9 +1,12 @@
 build:
-	mpicxx -g -o ex2 ex2.c -lm
+	mpicxx -fopenmp -c main.c -o main.o 
+	mpicxx -fopenmp -c sorting_funcs.c -o sorting_funcs.o -lm
+	mpicxx -fopenmp -c input_output_funcs.c -o input_output_funcs.o 
+	mpicxx -fopenmp -o prog main.o sorting_funcs.o input_output_funcs.o
 
 clean:
-	rm -f *.o ./ex2
+	rm -f *.o ./prog
 
 run:
-	mpiexec -np 16 ./ex2
+	mpiexec -np 16 ./prog
 
